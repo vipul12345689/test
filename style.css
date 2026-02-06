@@ -2,3 +2,130 @@ h1{
     color: red;
     background-color: pink;
 }
+/* Your class implementation*/
+#include "MyArray.h"
+
+MyArray :: MyArray(){
+  data_=nullptr;
+  size_=0;
+  capacity_=0;
+  }
+MyArray :: MyArray(const int*arr,size_t n){
+  size_=n;
+  capacity_=n;
+  
+  if(arr==nullptr || capacity_==0){
+  data_=nullptr;
+  return;
+  }
+  data_=new int[capacity_];
+  for(size_t i=0; i<n; i++){
+    data_[i]=arr[i];
+    }data_ = new int[capacity_];
+  
+};
+
+MyArray::MyArray(const MyArray& other){
+  size_=other.size_;
+  capacity_=other.capacity_;
+  if(capacity_ > 0){
+  for(size_t i=0; i<size_; i++){
+    data_[i]=other.data_[i];
+    }
+    }else{
+    data_=nullptr;
+    }
+  }
+
+MyArray& MyArray::operator=(const MyArray& other){
+  if(this != &other){
+    delete[] data_;
+  size_=other.size_;
+  capacity_= other.capacity_;
+
+  if(capacity_ > 0){
+  data_ = new int[capacity_];
+  for(size_t i=0; i<size_; i++){
+    data_[i]=other.data_[i];
+    }
+    }else{
+    data_=nullptr;
+    }
+  }
+  return *this;
+  }
+
+MyArray :: ~MyArray(){
+  if(size_ > 0)delete[] data_;
+};
+
+
+void MyArray :: addElement(int value){
+    if(size_ >= capacity_){
+    
+    capacity_=(capacity_==0)?1:capacity_*2;
+    int* newarr = new int[capacity_];
+        for(size_t i=0; i<size_; i++){
+          newarr[i]=data_[i];
+          }
+          delete[] data_;
+          data_ = newarr;
+          }
+          data_[size_]=value;
+          size_++;
+    }
+    
+size_t MyArray :: getSize() const{
+    return size_;
+    }
+    
+bool MyArray :: isEmpty() const {
+    return size_== 0;
+    }
+    
+void MyArray :: bubbleSort(){
+    for(size_t i=0; i<size_; i++){
+      for(size_t j=0; j<size_-i-1;j++){
+        if(data_[i]>data_[j]){
+          int temp = data_[i];
+          data_[i]=data_[j];
+          data_[j]=temp;
+          }
+        }
+    }
+  }
+    
+void MyArray :: insertionSort () {
+  for(size_t i=0; i<size_; i++){
+        int key=data_[i];
+        size_t j=i-1;
+    while(data_[j] > key && j > 0){
+        data_[j+1]=data_[j];
+        j--;
+      }
+      data_[j+1]=key;
+      }
+}
+// ============================================================
+
+void MyArray::print() const {
+    std::cout << "[";
+    for (size_t i = 0; i < size_; ++i) {
+        std::cout << data_[i];
+        if (i < size_ - 1) {
+            std::cout << ", ";
+        }
+    }
+    std::cout << "]" << std::endl;
+}
+
+bool MyArray::isSorted() const {
+    if (size_ <= 1) return true;
+    
+    for (size_t i = 1; i < size_; ++i) {
+        if (data_[i] < data_[i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
