@@ -9,3 +9,40 @@
     <h1>sandeep</h1>
 </body>
 </html>
+#ifndef MYARRAY_H
+#define MYARRAY_H
+
+#include <cstddef>
+#include <iostream>
+#include <stdexcept>
+
+class MyArray {
+
+      // YOUR IMPLEMENTATION HERE 
+      int*data_;
+      size_t size_;
+      size_t capacity_;
+    public:
+          MyArray();
+          MyArray(const int*arr,size_t n);
+          MyArray(const MyArray& other);
+          ~MyArray();
+          
+          MyArray& operator=(const MyArray& other);
+          
+          void addElement(int value);
+          size_t getSize()const;
+          bool isEmpty() const;
+          void bubbleSort();
+          void insertionSort();
+          
+
+    // ============================================================
+    //                    UTILITY
+    // ============================================================
+    
+    void print() const;
+    bool isSorted() const;
+};
+
+#endif // MY ARRAY_H
